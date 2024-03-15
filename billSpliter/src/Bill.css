@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family:Arial, Helvetica, sans-serif
+}
+.heading-container{
+    height: 5rem;
+    width: 100%;
+    background-color:black;
+    color: blueviolet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
