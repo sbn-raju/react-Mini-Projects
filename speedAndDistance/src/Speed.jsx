@@ -34,7 +34,7 @@ const Speed = () => {
             value={distance}
             onChange={handleDistance}/>
             <button onClick={calculateTime}>Calculate</button>
-            <p>Time required to travel the distance of {distance} is: {time}</p>
+            <p>Time required to travel the distance of {distance} is: {time} hrs</p>
         </div>
       </div>
     </>
