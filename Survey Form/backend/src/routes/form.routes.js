@@ -1,8 +1,9 @@
 import { Router } from "express";
+import { upload } from "../utils/image.upload.utils.js";
 import fromDataHandlerController from "../controllers/form.controllers.js";
 
 const route = Router();
 
-route.post("/api/form",fromDataHandlerController);
+route.post("/form",upload.single('imagePath'),fromDataHandlerController);
 
 export default route;

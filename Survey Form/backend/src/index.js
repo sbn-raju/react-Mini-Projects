@@ -4,6 +4,7 @@ import cors from "cors";
 
 
 
+
 const app = express();
 
 
@@ -19,6 +20,7 @@ import route from "./routes/form.routes.js"
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 
 const port = process.env.PORT||8080;
 
@@ -26,4 +28,4 @@ app.listen(port,()=>{
      console.log(`App is listening at the port ${port}`);
 });
 
-app.post("/api/form",route);
+app.use("/api",route);

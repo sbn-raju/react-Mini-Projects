@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
     question_two:{
         type: String,
         required: true
+    },
+    imagePath:{
+        type: String,
+        required: true
     }
 
 });

@@ -8,11 +8,12 @@ const Forms = () => {
     const[email, setEmail]=useState("");
     const[question_one, setQuestion_One] = useState("");
     const[question_two, setQuestion_Two] = useState("");
+    const[imagePath, setImagePath] = useState(null);
     const[msg, setMsg] = useState("");
  
     const handleName=(event)=>{
         setName(event.target.value);
-    }
+    } 
     const handleAge=(event)=>{
         setAge(event.target.value);
     }
@@ -23,34 +24,45 @@ const Forms = () => {
         setQuestion_One(event.target.value);
     }
 
-    const handleQuestion_two=()=>{
+    const handleQuestion_two=(event)=>{
         setQuestion_Two(event.target.value);
     }
+    const handleImage=(event)=>{
+      setImagePath(event.target.files[0]);
+  }
 
     
 
 
     const handleSubmitChange = async(e)=>{
-        e.preventDefault();
-         axios.post("/api/form",{
-                name,
-                age,
-                email,
-                question_one,
-                question_two
-          }).then((response)=>{
-               console.log("yes");
-               setMsg(response.data.message);
-          }).catch((err)=>{
-            console.log(err);
-            setMsg(err);
-          })
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('age', age);
+      formData.append('email', email);
+      formData.append('question_one', question_one);
+      formData.append('question_two', question_two);
+      formData.append('imagePath', imagePath);
+  
+      try {
+          const response = await axios.post("/api/form", formData, {
+              headers: {
+                  'Content-Type': 'multipart/form-data'
+              }
+          });
+          console.log("yes");
+          setMsg(response.data.message);
+      } catch (err) {
+          console.log(err);
+          setMsg(err.message);
+      }
+  
     }
   return (
     <>
        <div>
         <h1>Form</h1>
-        <form onSubmit={handleSubmitChange} method="post">
+        <form onSubmit={handleSubmitChange} method="post" enctype="multipart/form-data">
         <input type="text" name="name" id="name"  placeholder='Enter your name' onChange={handleName}/>
         <br />
         <input type="number" name="age" id="age"  placeholder='Enter your age' onChange={handleAge}/>
@@ -63,6 +75,7 @@ const Forms = () => {
         <label htmlFor="question_two">Share your Experience about the workshop</label>
         <textarea name="question_two" id="question_two" cols="30" rows="10" onChange={handleQuestion_two}></textarea>
         <br />
+        <input type="file" name="imagePath" id="imagePath" onChange={handleImage} />
         <button type="submit">Submit</button>
         </form>
         <p>{msg}</p>

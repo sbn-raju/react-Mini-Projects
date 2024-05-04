@@ -1,15 +1,16 @@
 import User from '../models/forms.model.js'
 
+
 const fromDataHandlerController = async(req,res)=>{
-    const{name, age, email, question_one, question_two} = req.body
-    console.log(name);
+    const{name, age, email, question_one, question_two, imagePath} = req.body
     try{
         const user = await User.create({
             name,
             age,
             email,
             question_one,
-            question_two
+            question_two,
+            imagePath:req.file.path,
         });
         if(user)
         return res.status(202).json({message:"Data submitted successfully"});
